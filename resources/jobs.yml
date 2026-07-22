@@ -1,0 +1,43 @@
+resources:
+
+  jobs:
+    customer_ingestion_job:
+      name: customer_ingestion_job
+      email_notifications:
+        on_failure: ${var.notification_email}
+      tasks:
+        - task_key: ingest_customers_ipynb
+          notebook_task:
+            notebook_path: ../src/ingestion.ipynb
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+              storage_location: ${var.storage_location}
+        # - task_key: transform_customers_py
+        #   environment_key: default
+        #   depends_on:
+        #     -task_key: ingest_customers_ipynb
+        #   spark_python_task:
+        #     python_file: ../src/transform.py
+          # new_cluster:
+          #   spark_version: 15.4.x-scala2.12
+          #   node_type_id: Standard_D4ds_v5
+          #   num_workers: 1        
+      environments:
+        - environment_key: default
+          spec:
+            client: "2"
+            dependencies:
+              - pandas
+              - requests  
+
+      trigger:
+        pause_status: "UNPAUSED"
+        periodic:
+          interval: 1
+          unit: MINUTES
+      
+      # permissions:
+      #   - level: CAN_MANAGE_RUN
+      #     service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
+      #   - level: CAN_VIEW
+      #     group_name: de_group
