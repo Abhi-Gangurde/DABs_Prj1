@@ -16,3 +16,4 @@ storage_location = dbutils.widgets.get("storage_location")
 df.write.mode("overwrite").format("delta").saveAsTable(f"{catalog}.bronze.customers")
 
 print(f"Loaded {df.count()} customer rows into {catalog}.bronze.customers")
+
