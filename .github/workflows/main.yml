@@ -1,1 +1,54 @@
+name: Deploy to Production from Dev PR
 
+on:
+  push:
+    path-ignores:
+      - prod
+    types:
+      - closed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.pull_request.merged == true &&
+        github.event.pull_request.base.ref == 'prod' &&
+        github.event.pull_request.head.ref == 'dev'
+      )
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Check out merged code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref || github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 0
+
+      - name: Set up runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run tests
+        run: npm test -- --ci
+
+      - name: Deploy to production
+        env:
+          PROD_API_KEY: ${{ secrets.PROD_API_KEY }}
+        run: |
+          echo "Replace this command with your production deployment step"
+          # Example:
+          # npm run deploy:prod
