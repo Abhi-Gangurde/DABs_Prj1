@@ -7,7 +7,9 @@ on:
     branches:
       - main
   workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
-
+permissions:
+  contents: read
+  id-token: write
 jobs:
   dev-deploy:
     runs-on: ubuntu-latest

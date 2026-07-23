@@ -30,11 +30,11 @@ resources:
               - pandas
               - requests  
 
-      trigger:
-        pause_status: "UNPAUSED"
-        periodic:
-          interval: 1
-          unit: MINUTES
+      # trigger:
+      #   pause_status: "UNPAUSED"
+      #   periodic:
+      #     interval: 1
+      #     unit: MINUTES
       
       # permissions:
       #   - level: CAN_MANAGE_RUN
