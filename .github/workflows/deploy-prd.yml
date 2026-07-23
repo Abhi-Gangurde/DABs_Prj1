@@ -1,0 +1,16 @@
+name: Deploy to Prod
+
+on:
+    push:
+        paths-ignore:
+            - .github/**
+        branches:
+            - main
+jobs:
+    deploy:
+        uses: ./.github/workflows/deploy-template.yml
+        with:
+            target: prod
+            secrets:
+                databricks_host: ${{ secrets.PROD_DEPLOY_URL }}
+                databricks_token: ${{ secrets.PROD_DEPLOY_TOKEN }}

@@ -1,0 +1,11 @@
+name: Deploy Template for DEV and PRD
+
+on:
+  push:
+    paths:
+      - .github/**
+      - resources/**
+      - src/**
+    branches:
+      - main
+  workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
