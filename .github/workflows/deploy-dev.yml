@@ -1,4 +1,4 @@
-name: Deploy to Dev Databricks Workspace
+name: Deploy to DEV Databricks Workspace
 
 on:
   push:
