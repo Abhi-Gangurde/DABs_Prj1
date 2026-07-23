@@ -1,12 +1,12 @@
 name: Deploy to Dev/Prod Databricks Workspace
 
 on:
-  push:
-    paths-ignore:
-      - .github/**
-    branches:
-      - main
-  workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
+  # push:
+  #   paths-ignore:
+  #     - .github/**
+  #   branches:
+  #     - main
+  # workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
 
 permissions:
   contents: read
