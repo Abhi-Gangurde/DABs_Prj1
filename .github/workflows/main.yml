@@ -6,7 +6,7 @@ on:
       - .github/**
     branches:
       - main
-  workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
+  # workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
 
 permissions:
   contents: read
@@ -84,4 +84,3 @@ jobs:
           ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
-          
