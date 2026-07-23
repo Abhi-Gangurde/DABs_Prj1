@@ -6,7 +6,7 @@ on:
       - .github/**
     branches:
       - main
-
+  workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
 jobs:
   dev-deploy:
     runs-on: ubuntu-latest
