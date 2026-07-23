@@ -1,18 +1,39 @@
-name: Deploy to Dev
+name: Deploy to Dev Databricks Workspace
 
 on:
   push:
-      paths-ignore:
-        - .github/**
-      branches:
-        - dev
+    paths-ignore:
+      - .github/**
+    branches:
+      - dev
   workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
-  deploy:
-    uses: ./.github/workflows/deploy-template.yml
-    with:
-      target_ws: dev
-    secrets:
-      databricks_host: ${{ secrets.DEV_DEPLOY_URL }}
-      databricks_token: ${{ secrets.DEV_DEPLOY_TOKEN }}
+  dev-deploy:
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@dev
+
+      - name: Deploy Bundle To DEV
+        run: databricks bundle deploy --target dev
+        env:
+          DATABRICKS_HOST: ${{ secrets.DEV_DEPLOY_URL }}
+          DATABRICKS_TOKEN: ${{ secrets.DEV_DEPLOY_TOKEN }}
+          ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
