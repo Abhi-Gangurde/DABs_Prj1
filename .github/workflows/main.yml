@@ -46,7 +46,7 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DEV_DEPLOY_URL }}
           DATABRICKS_TOKEN: ${{ secrets.DEV_DEPLOY_TOKEN }}
           ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ vars.AZURE_CLIENT_SECRET }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
 
   prd-deploy:
@@ -82,5 +82,5 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.PROD_DEPLOY_URL }}
           DATABRICKS_TOKEN: ${{ secrets.PROD_DEPLOY_TOKEN }}
           ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ vars.AZURE_CLIENT_SECRET }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
