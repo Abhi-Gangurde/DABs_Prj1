@@ -41,3 +41,4 @@ resources:
       #     service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
       #   - level: CAN_VIEW
       #     group_name: de_group
+
