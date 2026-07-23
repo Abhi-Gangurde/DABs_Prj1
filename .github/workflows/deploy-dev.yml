@@ -10,7 +10,8 @@ jobs:
     deploy:
         uses: ./.github/workflows/deploy-template.yml
         with:
-            target: dev
+            target_ws: dev
+            branch: dev
             secrets:
                 databricks_host: ${{ secrets.DEV_DEPLOY_URL }}
                 databricks_token: ${{ secrets.DEV_DEPLOY_TOKEN }}
