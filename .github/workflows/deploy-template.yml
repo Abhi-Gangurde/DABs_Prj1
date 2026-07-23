@@ -35,7 +35,9 @@ jobs:
           python-version: '3.9'
 
       - name: Setup Databricks CLI
-        uses: databricks/setup-cli@${{ github.ref_name }}
+        uses: databricks/setup-cli@main
+        with:
+          version: ${{ github.ref_name }}
 
       - name: Deploy Bundle To Target Environment
         run: databricks bundle deploy --target ${{ inputs.target_ws }}
