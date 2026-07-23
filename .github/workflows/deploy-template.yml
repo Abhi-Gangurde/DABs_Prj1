@@ -1,42 +1,42 @@
-name: Deploy Template for DEV and PRD
+name: "Deploy Template for DEV and PRD"
 
 on:
   workflow_call:
     inputs:
-        target_ws:
-            description: 'Target environment for deployment'
-            required: true
-            type: string
-        secrets:
-            databricks_host:
-                required: true
-            databricks_token:
-                required: true
+      target_ws:
+        description: 'Targeted databricks workspace for deployment'
+        required: true
+        type: string
+    secrets:
+      databricks_host:
+        required: true
+      databricks_token:
+        required: true
+
 permissions:
-    id-token: write
-    contents: read
+  id-token: write
+  contents: read
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        steps:
-        - name: Checkout repo
-            uses: actions/checkout@v6
-    
-        - name: Setup Python
-            uses: actions/setup-python@v5
-            with:
-                python-version: '3.9'
-    
-        - name: Setup Databricks CLI
-            uses: databricks/setup-cli@v6
-    
-        - name: Deploy Bundle To Target Environment
-            run: databricks bundle deploy --target ${{ inputs.target_ws }}
-            env:
-                DATABRICKS_HOST: ${{ inputs.secrets.databricks_host }}
-                DATABRICKS_TOKEN: ${{ inputs.secrets.databricks_token }}
-                ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-                ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-                ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@v1
+
+      - name: Deploy Bundle To Target Environment
+        run: databricks bundle deploy --target ${{ inputs.target_ws }}
+        env:
+          DATABRICKS_HOST: ${{ secrets.databricks_host }}
+          DATABRICKS_TOKEN: ${{ secrets.databricks_token }}
+          ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
