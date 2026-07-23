@@ -1,11 +1,42 @@
 name: Deploy Template for DEV and PRD
 
 on:
-  push:
-    paths:
-      - .github/**
-      - resources/**
-      - src/**
-    branches:
-      - main
-  workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
+  workflow_call:
+    inputs:
+        target:
+            description: 'Target environment for deployment'
+            required: true
+            type: string
+        secrets:
+            databricks_host:
+                required: true
+            databricks_token:
+                required: true
+permissions:
+    id-token: write
+    contents: read
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout repo
+            uses: actions/checkout@main
+    
+        - name: Setup Python
+            uses: actions/setup-python@v5
+            with:
+            python-version: '3.9'
+    
+        - name: Setup Databricks CLI
+            uses: databricks/setup-cli@main
+    
+        - name: Deploy Bundle To Target Environment
+            run: databricks bundle deploy --target ${{ inputs.target }}
+            env:
+                DATABRICKS_HOST: ${{ inputs.secrets.databricks_host }}
+                DATABRICKS_TOKEN: ${{ inputs.secrets.databricks_token }}
+                ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+                ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+                ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+
