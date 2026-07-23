@@ -27,7 +27,7 @@ jobs:
           python-version: '3.9'
 
       - name: Setup Databricks CLI
-        uses: databricks/setup-cli@dev
+        uses: databricks/setup-cli@main
 
       - name: Deploy Bundle To DEV
         run: databricks bundle deploy --target dev
