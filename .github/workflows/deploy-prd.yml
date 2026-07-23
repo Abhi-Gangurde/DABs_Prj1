@@ -7,6 +7,7 @@ on:
     branches:
       - main
   workflow_dispatch: # 👈 This adds the manual "Run workflow" button in GitHub
+
 jobs:
   deploy:
     uses: ./.github/workflows/deploy-template.yml

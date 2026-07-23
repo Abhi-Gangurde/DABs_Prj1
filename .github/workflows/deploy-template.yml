@@ -13,9 +13,9 @@ on:
       databricks_token:
         required: true
 
-permissions:
-  id-token: write
-  contents: read
+# permissions:
+#   id-token: write
+#   contents: read
 
 jobs:
   deploy:
