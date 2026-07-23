@@ -11,7 +11,6 @@ jobs:
         uses: ./.github/workflows/deploy-template.yml
         with:
             target_ws: prod
-            branch: main
             secrets:
                 databricks_host: ${{ secrets.PROD_DEPLOY_URL }}
                 databricks_token: ${{ secrets.PROD_DEPLOY_TOKEN }}
