@@ -27,6 +27,12 @@ targets:
       storage_location: abfss://unity-catalog-storage@dbstorageyk3is7tx6yrmk.dfs.core.windows.net/7405618300578421
     run_as:
       service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
+    permissions:
+      - level: CAN_MANAGE
+        service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
+      - level: CAN_VIEW
+        group_name: de_group
+        service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
   # test:
   #   workspace:
   #     host: https://adb-7405618920353532.12.azuredatabricks.net
@@ -44,10 +50,10 @@ targets:
       storage_location: abfss://unity-catalog-storage@dbstoragemoajt7jlkpcr6.dfs.core.windows.net/7405609092943182
     run_as:
       service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
-    # permissions:
-    #   - level: CAN_MANAGE
-    #     service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
-    #   - level: CAN_VIEW
-    #     group_name: de_group
-    #     service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
+    permissions:
+      - level: CAN_MANAGE
+        service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
+      - level: CAN_VIEW
+        group_name: de_group
+        service_principal_name: 53911237-ce34-4387-8a8a-1d1a8f152971
 
