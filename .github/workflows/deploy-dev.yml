@@ -36,6 +36,15 @@ jobs:
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main
 
+      - name: Validate Bundle To DEV
+        run: databricks bundle validate --target dev
+        env:
+          DATABRICKS_HOST: ${{ secrets.DEV_DEPLOY_URL }}
+          DATABRICKS_TOKEN: ${{ secrets.DEV_DEPLOY_TOKEN }}
+          ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+
       - name: Deploy Bundle To DEV
         run: databricks bundle deploy --target dev
         env:
