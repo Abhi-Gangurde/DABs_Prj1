@@ -13,8 +13,8 @@ variables:
   notification_email:
     description: Email address to send notifications to
     default: 
-      - dhiraj.nskd@gmail.com
-      - ${workspace.current_user.userName}
+      - abhi.nskd@gmail.com
+      # - ${workspace.current_user.userName}
 
 targets:
   dev:
@@ -35,7 +35,7 @@ targets:
     mode: production
     workspace:
       host: https://adb-7405609092943182.2.azuredatabricks.net
-      # root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/${workspace.current_user.id}/.bundle/${bundle.name}/${bundle.target}
       # root_path: /Shared/.bundle/${bundle.name}/${bundle.target}
     variables:
       catalog_name: prod_catalog
